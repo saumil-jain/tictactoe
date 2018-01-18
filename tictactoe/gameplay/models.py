@@ -15,5 +15,6 @@ class Move(models.Model):
     y = models.IntegerField()
     comment = models.CharField(max_length=300, blank=True)
     by_first_player = models.BooleanField()
+    status = models.CharField(max_length=1, default='F')
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
