@@ -8,6 +8,7 @@ class Game(models.Model):
 
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, default='F')
 
 
 class Move(models.Model):
@@ -15,6 +16,5 @@ class Move(models.Model):
     y = models.IntegerField()
     comment = models.CharField(max_length=300, blank=True)
     by_first_player = models.BooleanField()
-    status = models.CharField(max_length=1, default='F')
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
