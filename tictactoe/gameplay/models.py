@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+GAME_STATUS_CHOICES = (
+    ("F", "First Player To Move"),
+    ("S", "Second Player To Move"),
+    ("W", "First Player Wins"),
+    ("L", "Second Player Wins"),
+    ("D", "Draw")
+)
 
 class Game(models.Model):
     first_player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="games_first_player")
@@ -8,7 +15,7 @@ class Game(models.Model):
 
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1, default='F')
+    status = models.CharField(max_length=1, default='F', choices=GAME_STATUS_CHOICES)
 
     def __str__(self):
         return "{0} vs {1}".format(self.first_player, self.second_player)
