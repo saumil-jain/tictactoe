@@ -5,7 +5,15 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome</h1>
-    Hello! There are currently {{ ngames }} games active.
+<h1>Welcome {{ user.username }}</h1>
+Hello! There are currently {{ ngames }} games active.
+<p>
+    Your active games are :
+<ul>
+    {% for g in games %}
+    <li>Game {{ g.id }} : {{ g.first_player}} vs {{ g.second_player }}</li>
+    {% endfor %}
+</ul>
+</p>
 </body>
 </html>
