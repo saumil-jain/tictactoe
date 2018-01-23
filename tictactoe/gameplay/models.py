@@ -22,6 +22,9 @@ class GamesQuerySet(models.QuerySet):
             Q(status='F') | Q(status='S')
         )
 
+    def drew_games(self):
+        return self.filter(status='D')
+
 
 class Game(models.Model):
     first_player = models.ForeignKey(User, on_delete=models.CASCADE, related_name="games_first_player")
