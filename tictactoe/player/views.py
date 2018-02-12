@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from gameplay.models import Game
 from .forms import InvitationForm
+from .models import Invitation
 
 
 @login_required
@@ -20,7 +21,8 @@ def home(request):
 def new_invitation(request):
 
     if request.method == "POST":
-        form = InvitationForm(data=request.POST)
+        invitation = Invitation(from_user=request.user)
+        form = InvitationForm(instance=invitation, data=request.POST)
         if form.is_valid():
             form.save()
             return redirect("player_home")
