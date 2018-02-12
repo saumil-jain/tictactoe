@@ -23,7 +23,7 @@ def new_invitation(request):
         form = InvitationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            redirect("player_home")
+            return redirect("player_home")
     else:
         form = InvitationForm()
 
