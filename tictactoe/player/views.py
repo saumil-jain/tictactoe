@@ -11,10 +11,12 @@ def home(request):
     my_games = Game.objects.games_for_user(request.user)
     active_games = my_games.active()
     drew_games = my_games.drew_games()
+    invitations = request.user.invitations_received.all()
 
     return render(request, "player/home.html", {"ngames": Game.objects.count(),
                                                 "games": active_games,
-                                                "drew_games": drew_games})
+                                                "drew_games": drew_games,
+                                                "invitations": invitations})
 
 
 @login_required
