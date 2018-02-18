@@ -32,7 +32,7 @@ Home: {{ user.username }}
                     {% for inv in invitations %}
                         <a class="list-group-item"
                            href="{% url 'player_accept_invitation' id=inv.id %}">
-                            {{ inv.from_user.username }} has invited you to a game.
+                            {{ inv.from_user.username }} has invited you to a game. Click here to view.
                         </a>
                     {% endfor %}
                 </div>
