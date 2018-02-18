@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Home
+Home: {{ user.username }}
 {% endblock %}
 
 {% block content %}
@@ -30,7 +30,8 @@ Home
             {% if invitations %}
                 <div class="list-group">
                     {% for inv in invitations %}
-                        <a class="list-group-item">
+                        <a class="list-group-item"
+                           href="{% url 'player_accept_invitation' id=inv.id %}">
                             {{ inv.from_user.username }} has invited you to a game.
                         </a>
                     {% endfor %}
