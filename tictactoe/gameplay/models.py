@@ -48,6 +48,6 @@ class Move(models.Model):
     x = models.IntegerField()
     y = models.IntegerField()
     comment = models.CharField(max_length=300, blank=True)
-    by_first_player = models.BooleanField()
+    by_first_player = models.BooleanField(editable=False, default=True)
 
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, editable=False)
