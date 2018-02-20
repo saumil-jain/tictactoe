@@ -42,6 +42,8 @@ def accept_invitation(request, id):
     if request.user != invitation.to_user:
         raise PermissionDenied
 
+    game = None
+
     if request.method == "POST":
         if "accept" in request.POST:
             game = Game.objects.create(
@@ -50,8 +52,16 @@ def accept_invitation(request, id):
             )
 
         # in any case, whether the invitation was accepted or
-        # rejected, delete it and redirect to player home
+        # rejected, delete it
         invitation.delete()
-        return redirect("player_home")
+
+        if game:
+            # passing the object to redirect will call the
+            # object's get_absolute_url method
+            return redirect(game)
+        else:
+            # if invitation was declined, no game object was
+            # created, hence redirect to player home
+            return redirect("player_home")
     else:
         return render(request, "player/accept_invitation_form.html", {"invitation": invitation})
