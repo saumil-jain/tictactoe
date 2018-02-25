@@ -54,6 +54,11 @@ class Game(models.Model):
             board[move.y][move.x] = move
         return board
 
+    def is_users_move(self, user):
+        return (user == self.first_player and self.status == "F") or \
+               (user == self.second_player and self.status == "S")
+
+
 class Move(models.Model):
     x = models.IntegerField()
     y = models.IntegerField()
