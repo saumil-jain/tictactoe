@@ -58,6 +58,15 @@ class Game(models.Model):
         return (user == self.first_player and self.status == "F") or \
                (user == self.second_player and self.status == "S")
 
+    def new_move(self):
+        if self.status not in "FS":
+            raise ValueError("Cannot make move on a finished game")
+
+        return Move(
+            game=self,
+            by_first_player=(self.status == "F")
+        )
+
 
 class Move(models.Model):
     x = models.IntegerField()
