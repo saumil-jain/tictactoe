@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 GAME_STATUS_CHOICES = (
     ("F", "First Player To Move"),
@@ -69,8 +70,18 @@ class Game(models.Model):
 
 
 class Move(models.Model):
-    x = models.IntegerField()
-    y = models.IntegerField()
+    x = models.IntegerField(
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(BOARD_SIZE - 1)
+        ]
+    )
+    y = models.IntegerField(
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(BOARD_SIZE - 1)
+        ]
+    )
     comment = models.CharField(max_length=300, blank=True)
     by_first_player = models.BooleanField(editable=False, default=True)
 
