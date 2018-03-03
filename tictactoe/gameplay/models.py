@@ -102,3 +102,13 @@ class Move(models.Model):
     by_first_player = models.BooleanField(editable=False, default=True)
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE, editable=False)
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return other.by_first_player == self.by_first_player
+
+    def save(self, *args, **kwargs):
+        super(Move, self).save(*args, **kwargs)
+        self.game.update_after_move(self)
+        self.game.save()
